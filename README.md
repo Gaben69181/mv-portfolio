@@ -4,7 +4,7 @@ A portfolio website for Rynix, showcasing music video editing services, commissi
 
 ## Features
 
-- Responsive design with dark/light theme toggle
+- Responsive design
 - Services and pricing information
 - Portfolio showcase
 - Contact form with EmailJS integration
