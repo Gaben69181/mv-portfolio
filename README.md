@@ -60,6 +60,27 @@ A portfolio website for Rynix, showcasing music video editing services, commissi
 npm run build
 ```
 
+## Customization
+
+### Displaying YouTube Playlists
+
+To display your YouTube playlists in the portfolio section:
+
+1. Edit `src/components/Portfolio.jsx`
+2. Modify the `playlistsConfig` array with your playlist IDs and titles:
+
+```javascript
+const playlistsConfig = [
+  { id: 'YOUR_PLAYLIST_ID_1', title: 'Your Playlist Title 1' },
+  { id: 'YOUR_PLAYLIST_ID_2', title: 'Your Playlist Title 2' },
+  // Add more playlists as needed
+];
+```
+
+To find a YouTube playlist ID:
+- Go to your YouTube playlist
+- Copy the playlist ID from the URL (the part after `list=`)
+
 ## Deployment
 
 This project is configured for deployment on Netlify. The `netlify.toml` file contains the necessary configuration.
