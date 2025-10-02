@@ -1,7 +1,7 @@
 // YouTube API service for fetching playlist videos with ordering and titles
 // Setup: create a .env file in project root and add:
 // VITE_YT_API_KEY=YOUR_API_KEY_HERE
-const API_KEY = import.meta.env.VITE_YT_API_KEY || 'AIzaSyDPCHedvqpJO00cqpBaLiu5BGpimmY0ebI';
+const API_KEY = import.meta.env.VITE_YT_API_KEY;
 const BASE_URL = 'https://www.googleapis.com/youtube/v3';
 
 // Fetch playlist's public title (if not provided in config)
