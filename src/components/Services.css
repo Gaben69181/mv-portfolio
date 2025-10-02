@@ -1,0 +1,256 @@
+.services-section {
+  padding: 6rem 2rem;
+  background-color: #f8f9fa;
+}
+
+.services-section.dark {
+  background-color: #2d2d2d;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative; /* keep content above global glow */
+  z-index: 2;
+}
+
+.services-section .section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: #333;
+  position: relative;
+}
+
+.services-section .section-title.dark {
+  color: #f0f0f0;
+}
+
+.services-section .section-title:after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: var(--accent);
+  margin: 15px auto 0;
+  border-radius: 3px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.service-item {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-item.dark {
+  background: #3d3d3d;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.service-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.service-item.dark:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.service-icon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.service-item h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.service-item h3.dark {
+  color: #f0f0f0;
+}
+
+.service-item p {
+  color: #666;
+  line-height: 1.6;
+}
+
+.service-item p.dark {
+  color: #d0d0d0;
+}
+
+@media (max-width: 768px) {
+  .services-section {
+    padding: 4rem 1rem;
+  }
+  
+  .services-section .section-title {
+    font-size: 2rem;
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* Simple list layout for Services */
+.simple-services-list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 720px;
+  display: grid;
+  gap: 14px;
+  position: relative; /* stack over global glow */
+  z-index: 3;
+}
+
+.simple-services-list li {
+  position: relative;
+  overflow: hidden; /* keep the preview INSIDE the list item */
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  min-height: 68px; /* ensure enough area so preview can fill cleanly */
+  transition: border-color 200ms ease, box-shadow 200ms ease, transform 180ms ease, filter 180ms ease, opacity 180ms ease;
+  will-change: transform, filter, opacity;
+}
+
+/* Local glow behind a hovered list item (parallax-based) */
+.simple-services-list li::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0; /* behind text and checkmark, above background */
+  opacity: 0;
+  transition: opacity 180ms ease, transform 180ms ease;
+  background:
+    radial-gradient(
+      220px 220px at var(--lx, 50%) var(--ly, 50%),
+      rgba(0,229,191,0.18),
+      rgba(0,229,191,0) 60%
+    );
+  mix-blend-mode: screen;
+}
+.simple-services-list li.active::after { opacity: 0.5; }
+
+.simple-services-list li::before {
+  content: "✓";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgba(0, 229, 191, 0.14);
+  color: var(--accent);
+  font-weight: 900;
+  flex: 0 0 22px;
+  position: relative; /* allow z-index */
+  z-index: 4;         /* ensure checkmark stays above video preview */
+}
+
+/* When any item is hovered, dim the rest */
+.simple-services-list.list-hovering li {
+  opacity: 0.65;
+  filter: blur(0.3px) saturate(0.92);
+}
+
+
+/* Per-item preview overlay for hovered item */
+
+
+
+/* Make iframe cover the list item area with a little scale to avoid edges */
+
+
+/* Dark tint for readability */
+
+
+/* Cursor-follow glow within item */
+
+
+/* Ensure the text sits above overlays */
+.simple-services-list li .svc-text {
+  position: relative;
+  z-index: 4; /* above per-item preview */
+}
+
+ /* Keep mobile comfortable */
+@media (max-width: 600px) {
+  .simple-services-list {
+    max-width: 100%;
+    gap: 12px;
+  }
+  .simple-services-list li {
+    padding: 12px 14px;
+    border-radius: 10px;
+  }
+}
+/* Background hover preview + glow */
+.services-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Global cursor-follow glow (outside the cards) */
+
+
+
+/* Absolute overlay that plays a random playlist video on hover */
+
+
+
+
+/* Cover sizing for iframe (like hero) */
+
+
+/* Wider than 16:9: base on width */
+@media (min-aspect-ratio: 16/9) {
+  
+}
+
+/* Darken for readability while hovering */
+
+
+/* Foreground content transitions (slight blur/dim when hovering) */
+
+
+
+/* Cursor-follow glow */
+
+
+/* Hover: subtle lift, accent border, and soft shadow for simple list */
+.simple-services-list li:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.simple-services-list li:hover::before {
+  background: rgba(0, 229, 191, 0.24);
+}
+
+.simple-services-list li:focus-visible {
+  outline: none;
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(0, 229, 191, 0.35);
+}

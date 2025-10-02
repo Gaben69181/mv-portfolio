@@ -1,0 +1,180 @@
+.about-section {
+  padding: 6rem 2rem;
+  background-color: white;
+}
+
+.about-section.dark {
+  background-color: #1e1e1e;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-section .section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: #333;
+  position: relative;
+}
+
+.about-section .section-title.dark {
+  color: #f0f0f0;
+}
+
+.about-section .section-title:after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: var(--accent);
+  margin: 15px auto 0;
+  border-radius: 3px;
+}
+
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr; /* single column for TOS */
+  gap: 2rem;
+  align-items: start;
+}
+
+.about-text p {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+  color: #555;
+}
+
+.about-text p.dark {
+  color: #d0d0d0;
+}
+
+/* TOS blocks */
+.tos-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem 1.25rem;
+}
+
+/* spacing between items is handled by .tos-grid gap; no extra margin needed */
+
+.tos-block h3 {
+  margin: 0 0 0.5rem 0;
+}
+
+.tos-list {
+  margin: 0.25rem 0 0 0;    /* remove left margin to keep columns aligned */
+  padding-left: 1.25rem;     /* use padding for consistent bullet indent */
+  list-style-position: outside;
+}
+
+.tos-list li {
+  margin: 0.45rem 0;
+  color: var(--text);
+  line-height: 1.65;
+}
+
+.fun-fact.dark {
+  background-color: #2d2d2d;
+  border-left: 4px solid #5dade2;
+  color: #d0d0d0;
+}
+
+.specializations h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.specializations h3.dark {
+  color: #f0f0f0;
+}
+
+.specializations ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.specializations ul.dark {
+  color: #d0d0d0;
+}
+
+.specializations li {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.specializations li.dark {
+  border-bottom: 1px solid #3d3d3d;
+  color: #b0b0b0;
+}
+
+.specializations li:before {
+  content: "✓";
+  color: #3498db;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-right: 0.5em;
+}
+
+.specializations li.dark:before {
+  color: #5dade2;
+}
+
+@media (max-width: 768px) {
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  
+  .about-section {
+    padding: 4rem 1rem;
+  }
+  
+  .about-section .section-title {
+    font-size: 2rem;
+  }
+}
+/* Two-column TOS grid with hover effects */
+.tos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  align-items: stretch;      /* equalize heights per row */
+  grid-auto-rows: 1fr;       /* force each row to equal height */
+}
+
+.tos-block {
+  display: flex;
+  flex-direction: column;
+  height: 100%;              /* fill the grid track for equal height */
+  min-height: 300px;         /* consistent minimum across sections */
+  transition: border-color 200ms ease, box-shadow 220ms ease, transform 200ms ease, background 200ms ease;
+}
+
+.tos-block:hover,
+.tos-block:focus-within {
+  border-color: var(--accent);
+  background: rgba(255,255,255,0.02);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+}
+
+/* Responsive: stack to one column on smaller screens */
+@media (max-width: 900px) {
+  .tos-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;     /* natural heights on small screens */
+  }
+  .tos-block {
+    min-height: unset;        /* remove fixed min-height on mobile */
+    height: auto;
+  }
+}

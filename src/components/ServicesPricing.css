@@ -1,0 +1,312 @@
+/* Services & Pricing stacked banners (reference-style) */
+
+:root {
+  /* Accent for top/bottom separators (magenta like reference).
+     Override via --svp-accent on .svp-stack if needed. */
+  --svp-accent: #ff2aa1;
+}
+
+.svp-stack {
+  background: var(--bg);
+  color: inherit;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  border: 0 !important;
+}
+
+/* Each tier section */
+.svp-tier {
+  position: relative;
+  display: block;
+  /* tighten vertical spacing between tiers */
+  padding: clamp(8px, 1vw, 14px) 0;
+}
+/* Ensure any legacy bg wrappers are never visible */
+.svp-bg, .svp-scrim { display: none !important; }
+
+/* Background wrappers */
+.svp-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background: #0b0b0b; /* fallback if no media */
+}
+
+/* Cover strategy for both iframe and video */
+.svp-bg-media {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Attempt to cover both dimensions */
+  width: 177.78vh;   /* 100 * (16/9) */
+  height: 100vh;
+  min-width: 100%;
+  min-height: 100%;
+  border: 0;
+  object-fit: cover; /* impacts video element; harmless on iframe */
+  filter: saturate(0.9) contrast(1.02) brightness(0.95);
+}
+
+/* Dark scrim for readability + subtle texture */
+.svp-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  /* Neutral scrim to match page background (remove blue tint) */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.48), rgba(0, 0, 0, 0.64));
+  -webkit-backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(1.5px);
+}
+
+/* Container */
+.svp-container {
+  width: 100%;
+  max-width: 1100px;
+  padding: clamp(24px, 4vw, 40px);
+}
+
+/* Content block */
+.svp-content {
+  max-width: 760px;
+  /* text-shadow: 0 4px 16px rgba(0, 0, 0, 0.5); */
+}
+
+.svp-title {
+  font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+  font-weight: 900;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  line-height: 1.25;
+  color: var(--text);
+  margin: 0 0 10px 0;
+}
+
+.svp-sub {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin-bottom: 8px;
+}
+
+.svp-start {
+  font-weight: 800;
+  color: var(--text);
+  opacity: 0.9;
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
+}
+
+.svp-price {
+  font-weight: 900;
+  color: var(--text) !important; /* ensure base color is not overridden */
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+}
+
+/* Highlight only the numeric amount with the UI accent color */
+.svp-price .svp-currency,
+.svp-price .svp-code {
+  color: var(--text) !important; /* force $ and USD to stay neutral */
+  opacity: 0.9;
+  font-weight: 900;
+}
+
+.svp-price .svp-amount {
+  color: var(--text) !important; /* only the number is accented */
+  font-weight: 900;
+}
+
+.svp-unit {
+  color: var(--text-muted);
+  opacity: 0.9;
+  font-size: clamp(0.82rem, 1.6vw, 0.98rem);
+}
+
+/* Features list */
+.svp-features {
+  list-style: none;
+  margin: 10px 0 0 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.svp-features li {
+  position: relative;
+  padding-left: 18px;
+  color: var(--text-muted);
+  opacity: 0.95;
+  font-size: clamp(0.9rem, 1.6vw, 1rem);
+}
+
+.svp-features li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--accent, #00e5bf);
+  box-shadow: 0 0 0 3px rgba(0, 229, 191, 0.18);
+}
+
+/* Even banners: place bullets on the right side */
+.svp-tier:nth-of-type(even) .svp-features li {
+  padding-left: 0;
+  padding-right: 18px;
+}
+.svp-tier:nth-of-type(even) .svp-features li::before {
+  left: auto;
+  right: 0;
+}
+/* Strengthen specificity using class set from JSX */
+.svp-tier.is-even .svp-features li {
+  padding-left: 0;
+  padding-right: 18px;
+}
+.svp-tier.is-even .svp-features li::before {
+  left: auto;
+  right: 0;
+}
+
+/* Separators removed per feedback */
+.svp-divider { display: none; }
+.svp-divider--top {}
+.svp-divider--bottom {}
+
+/* Background media parallax removed per feedback */
+@media (hover: hover) and (pointer: fine) {
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .svp-content {
+    max-width: none;
+  }
+}
+/* Override accent to follow global UI accent inside this stack */
+.svp-stack { --svp-accent: var(--accent); }
+
+/* Rounded panel inside each banner (not full-bleed) */
+.svp-panel {
+  position: relative;
+  width: min(1100px, calc(100% - 32px));
+  /* reduce outer spacing of each panel */
+  margin: clamp(10px, 2vw, 16px) auto;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  /* Use regular surface when no video is provided */
+  background: var(--surface);
+  box-shadow: none;
+  overflow: hidden; /* clip background media to rounded corners */
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+/* When media is present, let the bg video fully own the fill */
+.svp-panel.has-media { background: transparent; }
+
+/* Background media inside the panel (optional; rendered only when provided) */
+.svp-panel-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none; /* prevent YouTube controls from appearing */
+  border-radius: inherit;
+  overflow: hidden;
+  /* Fallback color while media initializes (prevents dark gaps) */
+  background: var(--surface);
+}
+
+.svp-panel-media {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Base fill; specific media types override scale below */
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%) scale(2.0);
+  transform-origin: center center;
+  object-fit: cover; /* applies to video; harmless on iframe */
+  filter: saturate(0.9) contrast(1.02) brightness(0.9);
+  pointer-events: none; /* ensure background is not interactable (no YT controls) */
+}
+
+/* Stronger zoom for YouTube iframe to crop out pillarbox bars */
+.svp-panel-bg iframe.svp-panel-media {
+  transform: translate(-50%, -50%) scale(3.2);
+}
+
+/* Slight zoom for local video sources (already object-fit: cover) */
+.svp-panel-bg video.svp-panel-media {
+  transform: translate(-50%, -50%) scale(1.4);
+}
+
+.svp-panel-scrim {
+  position: absolute;
+  inset: 0;
+  /* Slightly stronger dim for readability */
+  background: linear-gradient(to bottom, rgba(0,0,0,0.28), rgba(0,0,0,0.42));
+}
+
+/* Diagonal stripes overlay with subtle opacity (points to right) */
+.svp-panel-stripes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Thin right-leaning hatch lines with subtle opacity */
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.10) 0 2px,
+      rgba(255, 255, 255, 0.10) 2px 2px,
+      rgba(0, 0, 0, 0.00) 2px 10px
+    );
+  opacity: 0.22;
+  mix-blend-mode: normal;
+}
+
+/* Inner container alignment within the rounded panel */
+.svp-panel .svp-container {
+  position: relative; /* ensure content sits above optional bg */
+  z-index: 1;
+  max-width: none;
+  /* tighten inner vertical padding to reduce overall panel height */
+  padding: clamp(16px, 3vw, 28px);
+  display: flex;
+  justify-content: flex-start;
+}
+
+.svp-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Even banners: push content to the right and right-align text */
+.svp-tier:nth-of-type(even) .svp-panel .svp-container {
+  justify-content: flex-end;
+}
+.svp-tier:nth-of-type(even) .svp-content {
+  text-align: right;
+  align-items: flex-end;
+}
+
+/* Hover effects: elevate the panel and accent the border (hover only on the panel) */
+@media (hover: hover) and (pointer: fine) {
+  .svp-panel:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow:
+      0 14px 44px rgba(0, 0, 0, 0.45),
+      0 0 0 2px rgba(0, 229, 191, 0.15) inset;
+  }
+}

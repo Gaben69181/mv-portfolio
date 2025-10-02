@@ -1,0 +1,113 @@
+/* Navbar: static (always visible) with clean dark-only palette */
+.navbar {
+  --nav-h: var(--nav-h, 72px);
+  position: fixed;          /* always follows scroll */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: transparent;  /* at top: no background/blur */
+
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: none;
+  z-index: 1000;
+  padding: 1rem 0;
+
+  transform: translateY(0);
+  opacity: 1;
+  transition:
+    background-color 220ms ease,
+    backdrop-filter 220ms ease,
+    -webkit-backdrop-filter 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease,
+    opacity 220ms ease;
+}
+
+/* Blur background only after scrolling */
+.navbar.scrolled {
+  background-color: var(--nav-surface);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Explicit white variants for dark-only header text */
+.brand,
+.nav-link {
+  color: var(--text);
+  transition: color 0.2s ease;
+}
+
+/* Force white header text as requested */
+.brand--white,
+.nav-link--white {
+  color: #ffffff !important;
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+}
+
+.nav-item {
+  margin-left: 2rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+}
+
+.nav-link--white:hover {
+  color: var(--accent) !important;
+}
+
+.nav-link--white:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: var(--accent);
+  transition: width 0.25s ease;
+}
+
+.nav-link--white:hover:after {
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .nav-menu {
+    margin-top: 0.25rem;
+  }
+  
+  .nav-item {
+    margin: 0 0.75rem;
+  }
+}

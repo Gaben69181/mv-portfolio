@@ -1,0 +1,358 @@
+/* Design tokens (light + dark, Netlify-like clean palette) */
+:root {
+  --bg: #ffffff;
+  --bg-elevated: #f7f8fa;
+  --surface: rgba(255, 255, 255, 0.95);
+  --text: #0b0d0e;
+  --text-muted: #475569;
+  --border: #e5e7eb;
+  --accent: #00ad9f;
+  --accent-strong: #009484;
+  --nav-h: 72px;
+
+  --button-bg: #0b0d0e;
+  --button-text: #ffffff;
+  --button-bg-hover: #1f2937;
+
+  --nav-surface: rgba(255, 255, 255, 0.95);
+}
+
+body.dark {
+  --bg: #0b0d0e;
+  --bg-elevated: #111418;
+  --surface: rgba(17, 20, 24, 0.92);
+  --text: #e6edf3;
+  --text-muted: #b6c2cf;
+  --border: #1f2428;
+  --accent: #00e5bf;
+  --accent-strong: #00c7a5;
+
+  --button-bg: #1f2428;
+  --button-text: #e6edf3;
+  --button-bg-hover: #2a3136;
+
+  --nav-surface: rgba(17, 20, 24, 0.92);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background-color: var(--bg);
+  overflow-x: hidden;
+}
+
+/* Global background video layer (kept for potential future use) */
+.global-bg-video {
+  position: fixed;
+  inset: 0;
+  z-index: 0;            
+  pointer-events: none;  
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+.global-bg-video.visible { opacity: 0.45; }
+.global-bg-video.hidden { opacity: 0; }
+
+.global-bg-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: blur(6px);
+  transform: scale(1.06);
+}
+.global-bg-video .gbg-tint {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* Ensure app content paints above global background */
+.App {
+  position: relative;
+  z-index: 1;
+}
+
+/* When background video is active, let portfolio section be transparent so video is visible */
+.bg-active-root .portfolio-section {
+  background-color: transparent !important;
+}
+.bg-active-root .portfolio-section.dark {
+  background-color: transparent !important;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Main Content: remove gap at top; navbar overlays initially */
+.main-content {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* When navbar becomes sticky (fixed), push content down smoothly by nav height */
+.navbar.sticky ~ .main-content {
+  padding-top: var(--nav-h, 72px);
+}
+
+/* Section Styles */
+section {
+  padding: 4rem 0;
+}
+
+/* Button Styles */
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  background-color: var(--button-bg-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Accent variant of the generic .btn, matches hero button style but uses UI accent */
+.btn-accent {
+  background: var(--accent) !important;
+  color: #0b0d0e !important; /* strong contrast on accent */
+  border-color: transparent !important;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.20);
+}
+.btn-accent:hover {
+  background: var(--accent-strong, var(--accent)) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+}
+.btn-accent:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Carrd-like enhancements */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background-color: var(--bg);
+}
+
+.container {
+  max-width: 900px;
+  padding: 0 20px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: var(--text);
+  position: relative;
+}
+
+.section-title:after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: var(--accent);
+  margin: 15px auto 0;
+  border-radius: 3px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+  }
+  
+  .nav-menu {
+    margin-top: 1rem;
+  }
+  
+  .nav-item {
+    margin: 0 1rem;
+  }
+  
+  .main-content {
+    margin-top: 0;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+}
+
+/* Single-page smooth scroll */
+html { scroll-behavior: smooth; }
+
+/* Per-section tone variants (subtle differences, aligned with Pricing palette) */
+.section-tone-hero {
+  --bg: #0b0d0e;
+  --surface: rgba(17,20,24,0.88);
+  --accent: #00e5bf;
+}
+.section-tone-portfolio {
+  --bg: #0c0f11;
+  --surface: rgba(18,22,26,0.92);
+  --accent: #00dbc2;
+}
+.section-tone-services {
+  --bg: #0e1114;
+  --surface: rgba(19,23,27,0.92);
+  --accent: #00d1b8;
+}
+.section-tone-pricing {
+  --bg: #0b0d0e;
+  --surface: rgba(17,20,24,0.92);
+  --accent: #00e5bf;
+}
+.section-tone-terms {
+  --bg: #0a0c0d;
+  --surface: rgba(15,18,21,0.92);
+  --accent: #00cab1;
+}
+.section-tone-footer {
+  --bg: #080a0b;
+  --surface: rgba(12,15,18,0.92);
+  --accent: #00bfa7;
+}
+
+/* Harmonize other sections to use design tokens like Pricing */
+.portfolio-section,
+.services-section,
+.about-section,
+.contact-section {
+  background: var(--bg) !important;
+  color: var(--text);
+}
+
+/* Card/surface backgrounds */
+.portfolio-section .portfolio-item,
+.services-section .service-item {
+  background: var(--surface) !important;
+  border: 1px solid var(--border);
+}
+
+/* Titles and text colors */
+.portfolio-section .portfolio-info .title,
+.services-section .service-item h3,
+.about-section h3,
+.about-section .about-text p,
+.about-section .specializations li,
+.contact-section .contact-info h3,
+.contact-section .contact-method h4 {
+  color: var(--text) !important;
+}
+
+.portfolio-section .video-index,
+.services-section .service-item p,
+.contact-section .contact-method p {
+  color: var(--text-muted) !important;
+}
+
+/* Inputs styled to match tokens */
+.contact-section .contact-form input,
+.contact-section .contact-form textarea {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text) !important;
+}
+
+/* Buttons consistent with tokens */
+.submit-btn {
+  background: var(--button-bg) !important;
+  color: var(--button-text) !important;
+  border: 1px solid var(--border) !important;
+}
+.submit-btn:hover {
+  background: var(--button-bg-hover) !important;
+}
+
+/* Accent bars under headings use token accent */
+.portfolio-section .section-title:after,
+.services-section .section-title:after,
+.pricing-section .section-title:after,
+.about-section .section-title:after,
+.contact-section .section-title:after {
+  background: var(--accent) !important;
+}
+
+/* Outline accent button variant (transparent background, accent border/text) */
+.btn-outline-accent {
+  background: transparent !important;
+  color: var(--accent) !important;
+  border: 2px solid var(--accent) !important;
+  border-radius: 30px;
+  font-weight: 800;
+}
+.btn-outline-accent:hover {
+  background: var(--accent) !important;
+  color: #0b0d0e !important;
+  border-color: var(--accent) !important;
+}
+.btn-outline-accent:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Text-accent variant: keep base button styling, change label color to UI accent */
+.btn-text-accent {
+  color: var(--accent) !important;
+}
+.btn-text-accent:hover,
+.btn-text-accent:focus {
+  color: var(--accent) !important;
+}
+
+/* Hover-accent: white text by default, turns to UI accent on hover/focus */
+.btn-hover-accent {
+  color: #ffffff !important;
+}
+.btn-hover-accent:hover,
+.btn-hover-accent:focus {
+  color: var(--accent) !important;
+}
+
+/* Simple dark scrollbar (global) */
+/* Firefox */
+:root {
+  scrollbar-width: thin;
+  scrollbar-color: #2a3136 #0b0d0e; /* thumb, track */
+}
+/* WebKit (Chrome/Edge/Safari) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0b0d0e; /* dark track */
+}
+::-webkit-scrollbar-thumb {
+  background: #2a3136; /* dark thumb */
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #38424a;
+}

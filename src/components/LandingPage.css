@@ -1,0 +1,147 @@
+/* Clean, modern hero with full-bleed background video (no gaps) */
+.landing-hero {
+  position: relative;
+  height: 100vh;           /* full screen */
+  padding: 0 !important;   /* override global section padding */
+  margin: 0;
+  overflow: hidden;
+  isolation: isolate;      /* create stacking context */
+}
+
+/* Background video fills the entire hero area, covering any aspect ratio */
+.video-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Default cover sizing using aspect-ratio technique for iframes */
+.video-bg iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 0;
+  transform: translate(-50%, -50%);
+  /* Fallback size; overridden below by aspect-ratio queries */
+  width: 177.78vh;   /* 100vh * 16/9 */
+  height: 100vh;
+  filter: blur(3px);      /* Tambahkan efek blur di sini */
+  pointer-events: none;    /* Agar tidak bisa diinteraksi */
+}
+
+/* When the viewport is wider (landscape > 16:9), use width based on viewport width */
+@media (min-aspect-ratio: 16/9) {
+  .video-bg iframe {
+    width: 100vw;
+    height: 56.25vw; /* 100vw * 9/16 */
+  }
+}
+
+/* When the viewport is taller (portrait < 16:9), use height based on viewport height */
+@media (max-aspect-ratio: 16/9) {
+  .video-bg iframe {
+    width: 177.78vh; /* 100vh * 16/9 */
+    height: 100vh;
+  }
+}
+
+/* Dim overlay to improve text contrast */
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 0;
+}
+
+/* Content area */
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  align-content: center;
+  justify-items: end;     /* right-align lines on large screens */
+  padding-inline: clamp(16px, 4vw, 64px);
+  padding-block: clamp(16px, 4vh, 64px);
+}
+
+/* Typewriter stack */
+.type-stack {
+  display: grid;
+  gap: 10px;                      /* spacing between lines */
+  align-content: center;
+  justify-items: end;             /* right align */
+  /* max-width: min(70ch, 90vw);     keep lines tidy on ultra wide screens */
+}
+
+/* Each typed line */
+.typed-line {
+  color: #fff;
+  font-weight: 800;
+  line-height: 1.15;
+  font-size: clamp(1.6rem, 3.6vw + 0.2rem, 3.6rem);
+  margin: 0;
+  white-space: pre-wrap;
+  text-align: right;
+  will-change: transform, opacity;
+}
+
+/* While typing: show caret */
+.typed-line.typing .caret {
+  display: inline-block;
+  width: 0.08em;
+  height: 0.9em;
+  margin-left: 0.08em;
+  background: #fff;
+  vertical-align: -0.05em;
+  animation: blink 1s steps(1, end) infinite;
+}
+
+/* After finishing a line: gently rise up to give space for next line */
+.typed-line.risen {
+  animation: rise 450ms ease forwards;
+  opacity: 0.92;
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes rise {
+  from { transform: translateY(14px); opacity: 0.6; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* CTA row under typed lines */
+.cta-row {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .hero-inner,
+  .type-stack {
+    justify-items: start;       /* left align on small screens */
+  }
+  .typed-line {
+    text-align: left;
+    font-size: clamp(1.4rem, 5vw, 2.2rem);
+  }
+}
+
+/* Remove legacy styles no longer used */
+.landing-page,
+.hero-section,
+.hero-content,
+.brand-name,
+.tagline,
+.background-visual,
+.video-placeholder,
+.play-icon {
+  /* Deprecated; kept neutral to avoid conflicts */
+}
